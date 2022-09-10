@@ -16,3 +16,11 @@ data_numeric <-data.frame(adni_slim$last_DX, data_numeric)
 names(data_numeric)[1] <- 'last_DX'
 
 data_numeric$X <- NULL
+
+mci_progress <- data_numeric %>%
+  dplyr::filter(DXMCI == 1) %>%
+  mutate(last_DX = factor(ifelse(last_DX == 'Dementia', 'Dementia', 'CN_MCI'),
+                          levels = c('CN_MCI', 'Dementia'))) %>%
+  select(-DXCN, -DXDementia, -DXMCI)
+
+
