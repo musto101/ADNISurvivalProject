@@ -1,5 +1,5 @@
 
-#install.packages('../RSurvivalML/RSurvivalML/', repos = NULL, type="source")
+install.packages('../RSurvivalML/RSurvivalML/', repos = NULL, type="source")
 library(RSurvivalML)
 
 dat <- read.csv('data/mci_preprocessed.csv')

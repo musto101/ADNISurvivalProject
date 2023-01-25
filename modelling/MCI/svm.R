@@ -1,5 +1,5 @@
 dat <- read.csv('data/mci_preprocessed.csv')
-install.packages('../RSurvivalML/RSurvivalML/', repos = NULL, type="source")
+install.packages('../RSurvivalML/RSurvivalML/', repos = NULL, type = "source")
 
 dat$X <- NULL
 dat$last_DX <- ifelse(dat$last_DX == 'CN_MCI', 0, 1)
