@@ -49,9 +49,9 @@ adni_slim <- adni_wo_missing %>%
 
 adni_slim$last_DX <- as.character(adni_slim$last_DX)
 
-adni_slim$ABETA <- as.numeric(gsub("[^0-9.]", "", adni_slim$ABETA))
-adni_slim$TAU <- as.numeric(gsub("[^0-9.]", "", adni_slim$TAU))
-adni_slim$PTAU <- as.numeric(gsub("[^0-9.]", "", adni_slim$PTAU))
+adni_slim$ABETA <- NULL
+adni_slim$TAU <- NULL
+adni_slim$PTAU <- NULL
 
-write.csv(adni_slim, 'data/adni2_slim.csv')
+write.csv(adni_slim, 'data/adni2_slim_wo_csf.csv')
 

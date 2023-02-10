@@ -4,7 +4,7 @@ library(RSurvivalML)
 
 pre <- Sys.time()
 
-dat <- read.csv('data/mci_preprocessed.csv')
+dat <- read.csv('data/mci_preprocessed_wo_csf.csv')
 
 dat$X <- NULL
 dat$last_DX <- ifelse(dat$last_DX == 'CN_MCI', 0, 1)
@@ -24,7 +24,4 @@ names(results) <- 'test_c_index'
 post <- Sys.time()
 
 post - pre
-
-library(reticulate)
-library(survivalmodels)
 

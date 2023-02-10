@@ -7,12 +7,12 @@ library(caret)
 library(tidyverse)
 library(doParallel)
 
-adni_slim <- read.csv('data/adni2_slim.csv')
+adni_slim2 <- read.csv('data/adni2_slim_wo_csf.csv')
 
-dat <- preprocessing(dat = adni_slim, perc = 0.9, clinGroup = 'MCI')
+dat <- preprocessing(dat = adni_slim2, perc = 0.9, clinGroup = 'MCI')
 
-write.csv(dat, 'data/mci_preprocessed.csv')
+write.csv(dat, 'data/mci_preprocessed_wo_csf.csv')
 
 dat <- preprocessing(dat = adni_slim, perc = 0.9, clinGroup = 'CN')
 
-write.csv(dat, 'data/cn_preprocessed.csv')
+write.csv(dat, 'data/cn_preprocessed_wo_csf.csv')
