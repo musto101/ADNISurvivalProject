@@ -9,10 +9,10 @@ dat$X <- NULL
 dat$last_DX <- ifelse(dat$last_DX == 'CN', 0, 1)
 table(dat$last_DX)
 
-dat_list <- dat_splitter(dat = dat, perc = 0.8, 'last_DX')
+dat_list <- dat_splitter(dat = dat, perc = 0.8, ext_dat = NULL, target = 'last_DX')
 
 dat_train <- data.frame(dat_list[1])
-
+table(dat_train$last_DX)
 dat_train$last_DX <- as.numeric(dat_train$last_DX)
 
 fit <- coxph(Surv(time = last_visit, event = last_DX) ~ .,

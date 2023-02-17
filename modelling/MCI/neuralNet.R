@@ -5,10 +5,9 @@ library(RSurvivalML)
 pre <- Sys.time()
 
 dat <- read.csv('data/mci_preprocessed.csv')
+ext_dat <- NULL
 
 dat$X <- NULL
-dat$last_DX <- ifelse(dat$last_DX == 'CN_MCI', 0, 1)
-table(dat$last_DX)
 grid <- list(num_nodes = c(16, 32, 48),
              activation = c('relu'),
              epochs	= 5:20,
@@ -17,9 +16,9 @@ grid <- list(num_nodes = c(16, 32, 48),
 source('modelling/MCI/survModel.R')
 
 results <- survModel(dat = dat, modType = 'surv.deephit', clinGroup = 'MCI',
-                     grid = grid, mcRep = 1)
+                     grid = grid, mcRep = 1, perc = 0.8, ext_dat = ext_dat)
 
-names(results) <- 'test_c_index'
+#names(results) <- 'test_c_index'
 
 post <- Sys.time()
 

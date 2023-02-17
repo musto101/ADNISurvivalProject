@@ -4,17 +4,27 @@ library(doParallel)
 library(RSurvivalML)
 library(DMwR)
 
-survModel <- function(dat, ext_dat, modType, clinGroup, grid, mcRep, perc) {
+survModel <- function(dat, ext_dat = NULL, modType, clinGroup, grid, mcRep, perc) {
 
   if (clinGroup == 'CN') {
 
     dat$last_DX <- ifelse(dat$last_DX == 'CN', 0, 1)
-    ext_dat$last_DX <- ifelse(ext_dat$last_DX == 'CN', 0, 1)
+
+    if (!is.null(ext_dat)) {
+
+      ext_dat$last_DX <- ifelse(ext_dat$last_DX == 'CN', 0, 1)
+
+    }
 
   } else if (clinGroup == 'MCI') {
 
     dat$last_DX <- ifelse(dat$last_DX == 'CN_MCI', 0, 1)
-    ext_dat$last_DX <- ifelse(ext_dat$last_DX == 'CN_MCI', 0, 1)
+
+    if (!is.null(ext_dat)) {
+
+      ext_dat$last_DX <- ifelse(ext_dat$last_DX == 'CN_MCI', 0, 1)
+
+    }
 
   } else {
       stop('clinGroup not recognised')
@@ -35,6 +45,7 @@ survModel <- function(dat, ext_dat, modType, clinGroup, grid, mcRep, perc) {
   for (j in 1:mcRep) {
 
     print(j)
+#  }
 
     # dat_part <- createDataPartition(y = dat$last_DX, times = 1,
     #                                 p = 0.8, list = F)
@@ -55,8 +66,15 @@ survModel <- function(dat, ext_dat, modType, clinGroup, grid, mcRep, perc) {
 
 
 
-    mcPerf <- rbind(mcPerf, results[[1]], results[[2]])
+    V <- c(unlist(results[[1]]), unlist(results[[2]]))
 
-    return(mcPerf)
+    if (!is.null(ext_dat)) {
+
+      V <- c(V, unlist(results[[3]]))
+    }
+
+    mcPerf <- rbind(mcPerf, V)
+
   }
+  return(mcPerf)
 }

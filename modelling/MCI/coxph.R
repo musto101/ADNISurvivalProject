@@ -9,7 +9,7 @@ dat$X <- NULL
 dat$last_DX <- ifelse(dat$last_DX == 'CN_MCI', 0, 1)
 table(dat$last_DX)
 
-dat_list <- dat_splitter(dat = dat, perc = 0.8, 'last_DX')
+dat_list <- dat_splitter(dat = dat, perc = 0.8, ext_dat = NULL, target = 'last_DX')
 
 dat_train <- data.frame(dat_list[1])
 

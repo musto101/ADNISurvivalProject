@@ -19,3 +19,9 @@ adni_slim1 <- read.csv('data/adni1_slim_wo_csf.csv')
 dat1 <- preprocessing(dat = adni_slim1, perc = 0.9, clinGroup = 'CN')
 
 write.csv(dat1, 'data/cn_preprocessed_wo_csf_adni1.csv')
+
+dat1 <- preprocessing(dat = adni_slim1, perc = 0.9, clinGroup = 'MCI')
+
+dat1$X.1 <- NULL
+
+write.csv(dat1, 'data/mci_preprocessed_wo_csf_adni1.csv')

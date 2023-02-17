@@ -2,7 +2,9 @@
 install.packages('../RSurvivalML/RSurvivalML/', repos = NULL, type="source")
 library(RSurvivalML)
 
-dat <- read.csv('data/mci_preprocessed.csv')
+pre <- Sys.time()
+
+dat <- read.csv('data/mci_preprocessed_wo_csf.csv')
 ext_dat <- NULL
 
 dat$X <- NULL
@@ -17,6 +19,9 @@ source('modelling/MCI/survModel.R')
 results <- survModel(dat = dat, modType = 'surv.ranger', clinGroup = 'MCI',
                      grid = grid, mcRep = 1, perc = 0.8, ext_dat = ext_dat)
 
-row.names(results) <- c('train_c_index', 'test_c_index')
+names(results) <- 'test_c_index'
 
-#learner$model$mtry
+post <- Sys.time()
+
+post - pre
+

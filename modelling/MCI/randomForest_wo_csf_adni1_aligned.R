@@ -14,17 +14,16 @@ ext_dat$X <- NULL
 # ext_dat$last_DX <- ifelse(ext_dat$last_DX == 'CN_MCI', 0, 1)
 
 table(dat$last_DX)
-grid <- list(num_nodes = c(1:16),
-             activation = c('relu'),
-             epochs	= 20:150,
-             batch_size = c(1000, 2000, 5000, 10000)) #c(100, 200, 500, 1000, 1500))
+grid <- list(mtry = 1:round(ncol(dat)/2,0),
+             min.node.size = c(40, 50, 60),
+             num.trees = 1000) #c(100, 200, 500, 1000, 1500))
 
 source('modelling/MCI/survModel.R')
 
-results <- survModel(dat = dat, ext_dat  = ext_dat, modType = 'surv.deephit',
-                     clinGroup = 'MCI', grid = grid, mcRep = 1, perc = 0.8)
+results <- survModel(dat = dat, ext_dat  = ext_dat, modType = 'surv.ranger',
+                     clinGroup = 'MCI', grid = grid, mcRep = 100, perc = 0.8)
 
-names(results) <- 'test_c_index'
+#names(results) <- 'test_c_index'
 
 post <- Sys.time()
 
